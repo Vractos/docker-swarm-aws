@@ -12,7 +12,7 @@ variable "instance_type" {
 }
 variable "key_path" {
   description = "SSH Public Key path"
-  default = ""
+  type = string
 }
 variable "key_name" {
   description = "Desired name of Keypair..."

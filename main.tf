@@ -11,13 +11,14 @@ terraform {
 
 provider "aws" {
   region = "${var.aws_region}"
+  profile = "tf-logu"
 }
 
 resource "aws_instance" "master" {
   ami = "${var.ami}"
   instance_type = "${var.instance_type}"
   key_name = "${var.key_name}"
-  # vpc_security_group_ids = ["${aws_security_group.sgswarm.id}"]
+  vpc_security_group_ids = ["${aws_security_group.sgswarm.id}"]
   user_data = "${file("${var.bootstrap_path}")}"
 
   tags = {
@@ -25,26 +26,26 @@ resource "aws_instance" "master" {
   }
 }
 
-# resource "aws_instance" "worker1" {
-#   ami = "${var.ami}"
-#   instance_type = "${var.instance_type}"
-#   key_name = "${var.key_name}"
-#   vpc_security_group_ids = ["${aws_security_group.sgswarm.id}"]
-#   user_data = "${file("${var.bootstrap_path}")}"
+resource "aws_instance" "worker1" {
+  ami = "${var.ami}"
+  instance_type = "${var.instance_type}"
+  key_name = "${var.key_name}"
+  vpc_security_group_ids = ["${aws_security_group.sgswarm.id}"]
+  user_data = "${file("${var.bootstrap_path}")}"
 
-#   tags = {
-#     Name = "ExampleAppServerInstance"
-#   }
-# }
+  tags = {
+    Name = "ExampleAppServerInstance"
+  }
+}
 
-# resource "aws_instance" "worker2" {
-#   ami = "${var.ami}"
-#   instance_type = "${var.instance_type}"
-#   key_name = "${var.key_name}"
-#   vpc_security_group_ids = ["${aws_security_group.sgswarm.id}"]
-#   user_data = "${file("${var.bootstrap_path}")}"
+resource "aws_instance" "worker2" {
+  ami = "${var.ami}"
+  instance_type = "${var.instance_type}"
+  key_name = "${var.key_name}"
+  vpc_security_group_ids = ["${aws_security_group.sgswarm.id}"]
+  user_data = "${file("${var.bootstrap_path}")}"
 
-#   tags = {
-#     Name = "ExampleAppServerInstance"
-#   }
-# }
+  tags = {
+    Name = "ExampleAppServerInstance"
+  }
+}
